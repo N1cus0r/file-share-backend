@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Externals
     "corsheaders",
+    'django_cleanup',
     "oauth2_provider",
     "social_django",
     "drf_social_oauth2",

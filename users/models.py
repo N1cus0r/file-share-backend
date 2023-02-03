@@ -1,4 +1,6 @@
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import post_delete
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -6,6 +8,22 @@ from django.contrib.auth.models import (
     BaseUserManager,
 )
 
+def delete_file_if_unused(model, instance, field, instance_file_field):
+    dynamic_field = {}
+    dynamic_field[field.name] = instance_file_field.name
+    other_refs_exist = (
+        model.objects.filter(**dynamic_field).exclude(pk=instance.pk).exists()
+    )
+    if not other_refs_exist:
+        instance_file_field.delete(False)
+
+
+@receiver(post_delete)
+def delete_files_when_row_deleted_from_db(sender, instance, **kwargs):
+    for field in sender._meta.concrete_fields:
+        if isinstance(field, models.FileField):
+            instance_file_field = getattr(instance, field.name)
+            delete_file_if_unused(sender, instance, field, instance_file_field)
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, first_name, password, picture, last_name=""):
@@ -37,12 +55,16 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
+def get_profile_pic_path(instance, filename):
+    return f'avatars/{filename}'
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
-    picture = models.CharField(max_length=200, null=True)
+    picture = models.ImageField(upload_to=get_profile_pic_path, 
+                                validators=[FileExtensionValidator(['png', 'jpg'])], null=True)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
 
@@ -53,3 +75,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.first_name
+
+
+
