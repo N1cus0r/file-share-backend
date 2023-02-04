@@ -15,6 +15,6 @@ urlpatterns = [
     path("get-password-reset-email", GetPasswordResetEmail.as_view()),
     path("perform-password-reset", PerformPasswordReset.as_view()),
     path("activate-account", ActivateUserAccount.as_view()),
-    path('get-encoded-uid', GetEditProfileUID.as_view()),
-    path('edit-profile', EditProfile.as_view()),
+    path("get-encoded-uid", GetEditProfileUID.as_view()),
+    path("edit-profile", EditProfile.as_view()),
 ]

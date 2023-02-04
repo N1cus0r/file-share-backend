@@ -8,13 +8,19 @@ import users.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0002_auto_20230202_2026'),
+        ("users", "0002_auto_20230202_2026"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='customuser',
-            name='picture',
-            field=models.ImageField(null=True, upload_to=users.models.get_profile_pic_path, validators=[django.core.validators.FileExtensionValidator(['png', 'jpg'])]),
+            model_name="customuser",
+            name="picture",
+            field=models.ImageField(
+                null=True,
+                upload_to=users.models.get_profile_pic_path,
+                validators=[
+                    django.core.validators.FileExtensionValidator(["png", "jpg"])
+                ],
+            ),
         ),
     ]

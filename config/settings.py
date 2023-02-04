@@ -13,7 +13,7 @@ SECRET_KEY = os.getenv("SITE_SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 CLIENT_HOST_URL = os.getenv("CLIENT_HOST_URL")
 SERVER_HOST_URL = os.getenv("SERVER_HOST_URL")
 
@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Externals
     "corsheaders",
-    'django_cleanup',
+    "django_cleanup",
     "oauth2_provider",
     "social_django",
     "drf_social_oauth2",

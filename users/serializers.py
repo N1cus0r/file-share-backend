@@ -136,64 +136,35 @@ class PerformPasswordResetSerializer(serializers.Serializer):
         return user
 
 
-# class EditProfileSerializer(serializers.Serializer):
-#     uid = serializers.CharField(write_only=True, allow_null=True) 
-#     first_name = serializers.CharField(write_only=True, allow_null=True) 
-#     last_name = serializers.CharField(write_only=True, allow_null=True) 
-#     picture = serializers.ImageField(write_only=True, allow_null=True) 
-#     class Meta:
-#         fields = ['uid', 'first_name', 'last_name', 'picture']
-    
-#     def validate(self, data):
-#         user_id = Util.get_decoded_user_id(data.pop('uid'))
-#         queryset = CustomUser.objects.filter(pk=user_id)
-
-#         if not queryset.exists():
-#             raise serializers.ValidationError('Encoded UID does not match users id')
-        
-#         user = queryset[0]        
-
-#         if data['first_name']:
-#             print(data['first_name'])
-#             user.first_name = data['first_name']
-        
-#         if data['last_name']:
-#             user.last_name = data['last_name']    
-        
-#         if data['picture']:
-#             user.picture = data['picture']
-
-#         user.save()
-#         return user    
-    
 class EditProfileSerializer(serializers.ModelSerializer):
     uid = serializers.CharField(write_only=True)
+
     class Meta:
         model = CustomUser
-        fields = ['uid', 'first_name', 'last_name', 'picture']
-        
+        fields = ["uid", "first_name", "last_name", "picture"]
+
     def validate(self, data):
-        user_id = Util.get_decoded_user_id(data.pop('uid'))
+        user_id = Util.get_decoded_user_id(data.pop("uid"))
         queryset = CustomUser.objects.filter(pk=user_id)
 
         if not queryset.exists():
-            raise serializers.ValidationError('Encoded UID does not match users id')
-        
-        data['uid'] = user_id
-        
+            raise serializers.ValidationError("Encoded UID does not match users id")
+
+        data["uid"] = user_id
+
         return data
-    
+
     def create(self, validated_data):
-        user = CustomUser.objects.get(pk=validated_data['uid'])        
-        
-        if validated_data['first_name']:
-            user.first_name = validated_data['first_name']
-        
-        if validated_data['last_name']:
-            user.last_name = validated_data['last_name']    
-        
-        if validated_data['picture']:
-            user.picture = validated_data['picture']
+        user = CustomUser.objects.get(pk=validated_data["uid"])
+
+        if validated_data.get("first_name"):
+            user.first_name = validated_data["first_name"]
+
+        if validated_data.get("last_name"):
+            user.last_name = validated_data["last_name"]
+
+        if validated_data.get("picture"):
+            user.picture = validated_data["picture"]
 
         user.save()
-        return user 
+        return user

@@ -28,13 +28,11 @@ class Util:
         img_temp.write(urlopen(img_url).read())
         img_temp.flush()
         return File(img_temp)
-    
-    
+
     @staticmethod
     def get_encoded_user_id(user_obj):
         return urlsafe_base64_encode(force_bytes(user_obj.pk))
-    
-    
+
     @staticmethod
     def get_decoded_user_id(uid):
         return force_str(urlsafe_base64_decode(uid))

@@ -9,6 +9,7 @@ def create_unique_code():
         if not SharedData.objects.filter(code=code).exists():
             return code
 
+
 class SharedData(models.Model):
     title = models.CharField(max_length=100, blank=True)
     message = models.TextField(blank=True)

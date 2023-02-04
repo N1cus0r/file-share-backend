@@ -7,18 +7,18 @@ import users.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='customuser',
-            name='is_active',
+            model_name="customuser",
+            name="is_active",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='customuser',
-            name='picture',
+            model_name="customuser",
+            name="picture",
             field=models.ImageField(upload_to=users.models.get_profile_pic_path),
         ),
     ]
