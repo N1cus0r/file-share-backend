@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from oauth2_provider.contrib.rest_framework.authentication import OAuth2Authentication
 from drf_social_oauth2.authentication import SocialAuthentication
 
+
 from .serializers import (
     CreateCustomUserSerializer,
     CustomUserSerializer,
