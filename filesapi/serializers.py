@@ -8,6 +8,10 @@ class SharedDataSerializer(serializers.ModelSerializer):
         model = SharedData
         fields = ["title", "message", "file", "code"]
 
+    """create method raises an error if file was not supplied
+    in the POST request, also sets the file name as a title when
+    the title is not provided"""
+
     def create(self, validated_data):
         if not validated_data.get("file"):
             raise serializers.ValidationError("File or was not supplied")

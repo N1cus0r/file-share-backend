@@ -10,6 +10,10 @@ from drf_social_oauth2.authentication import SocialAuthentication
 from .serializers import SharedDataSerializer
 from .models import SharedData
 
+"""this view accepts POST requests and if the request passes the validation
+in the serializer, an instance of SharedData model is created and
+as a result return the instance data as well as the url to access it"""
+
 
 class CreateSharedDataInstance(APIView):
     parser_classes = [MultiPartParser, FormParser]
@@ -28,6 +32,10 @@ class CreateSharedDataInstance(APIView):
             {"instance": serializer.data, "url": instance_url},
             status=status.HTTP_201_CREATED,
         )
+
+
+"""this view accepts GET requests with the code of a SharedData instance
+provided in the query params and as a result returns the instance data"""
 
 
 class GetDataInstance(APIView):

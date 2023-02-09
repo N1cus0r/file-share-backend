@@ -1,12 +1,16 @@
 import factory
 from faker import Faker
 
+"""instance of Faker class that provides 
+fake data for a SharedData instance"""
 
 fake = Faker()
 
 from users.models import CustomUser
 from filesapi.tests.factories import ImageProvider
-    
+
+"""factory produces instances of CustomUser supplying 
+the necessary fields with fake data"""
 
 class CustomUserFactory(factory.django.DjangoModelFactory):
     class Meta:

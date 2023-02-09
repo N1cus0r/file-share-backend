@@ -3,6 +3,11 @@ from string import ascii_uppercase
 from django.db import models
 
 
+"""Function generates a unique 6 char code in uppercase for
+each instance of shared data so that ir can be easily accessed
+from the frontend"""
+
+
 def create_unique_code():
     while True:
         code = "".join(random.choices(ascii_uppercase, k=6))

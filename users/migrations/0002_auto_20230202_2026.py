@@ -5,7 +5,6 @@ import users.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("users", "0001_initial"),
     ]

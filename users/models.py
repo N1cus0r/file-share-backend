@@ -9,27 +9,12 @@ from django.contrib.auth.models import (
 )
 
 
-# def delete_file_if_unused(model, instance, field, instance_file_field):
-#     dynamic_field = {}
-#     dynamic_field[field.name] = instance_file_field.name
-#     other_refs_exist = (
-#         model.objects.filter(**dynamic_field).exclude(pk=instance.pk).exists()
-#     )
-#     if not other_refs_exist:
-#         instance_file_field.delete(False)
-
-
-# @receiver(post_delete)
-# def delete_files_when_row_deleted_from_db(sender, instance, **kwargs):
-#     for field in sender._meta.concrete_fields:
-#         if isinstance(field, models.FileField):
-#             instance_file_field = getattr(instance, field.name)
-#             delete_file_if_unused(sender, instance, field, instance_file_field)
+"""manages the creation of simple users and superusers using
+the CustomUser model"""
 
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, first_name, password, picture, last_name=""):
-
         if not email:
             raise ValueError("You must provide an email address")
         elif not first_name:
@@ -57,6 +42,9 @@ class CustomUserManager(BaseUserManager):
         user.save()
 
         return user
+
+
+"""function return the path where the user avatar will be saved"""
 
 
 def get_profile_pic_path(instance, filename):

@@ -12,6 +12,11 @@ from .models import CustomUser
 from .utils import Util
 
 
+"""checks if an user with the provided email exists
+and creates an inactive CustomUser instance, then
+sends an email for account activation"""
+
+
 class CreateCustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
@@ -50,6 +55,9 @@ class CreateCustomUserSerializer(serializers.ModelSerializer):
         return user
 
 
+"""activates a CustomUser instance"""
+
+
 class ActivateAccountSerializer(serializers.Serializer):
     uid = serializers.CharField(write_only=True)
 
@@ -68,10 +76,17 @@ class ActivateAccountSerializer(serializers.Serializer):
         return data
 
 
+"""serializes the CustomUser model"""
+
+
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ["email", "first_name", "last_name", "picture"]
+
+
+"""takes the provided email for password reset and sends
+an email to reset the password"""
 
 
 class PasswordResetEmailSerializer(serializers.Serializer):
@@ -111,6 +126,10 @@ class PasswordResetEmailSerializer(serializers.Serializer):
         raise serializers.ValidationError("User with this email does not exist")
 
 
+"""takes the password reset token as well as the encoded user id
+and updates the password with the provided password"""
+
+
 class PerformPasswordResetSerializer(serializers.Serializer):
     uid = serializers.CharField(write_only=True)
     token = serializers.CharField(write_only=True)
@@ -134,6 +153,10 @@ class PerformPasswordResetSerializer(serializers.Serializer):
         user.save()
 
         return user
+
+
+"""takes the encoded user id as well as the data
+to change the user profile"""
 
 
 class EditProfileSerializer(serializers.ModelSerializer):

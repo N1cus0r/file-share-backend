@@ -10,6 +10,7 @@ from tempfile import NamedTemporaryFile
 
 
 class Util:
+    '''function sends and email to the user '''
     @staticmethod
     def send_custom_email(data):
         email = EmailMultiAlternatives(
@@ -22,6 +23,9 @@ class Util:
 
         email.send()
 
+    '''function takes the image from the url and returns 
+    a File instance of that image'''
+    
     @staticmethod
     def get_image_from_url(img_url):
         img_temp = NamedTemporaryFile(delete=True)
@@ -29,10 +33,13 @@ class Util:
         img_temp.flush()
         return File(img_temp)
 
+    '''function return encoded user id'''
     @staticmethod
     def get_encoded_user_id(user_obj):
         return urlsafe_base64_encode(force_bytes(user_obj.pk))
 
+
+    '''function return decoded user id'''
     @staticmethod
     def get_decoded_user_id(uid):
         return force_str(urlsafe_base64_decode(uid))
