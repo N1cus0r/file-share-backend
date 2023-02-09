@@ -12,6 +12,7 @@ from filesapi.tests.factories import ImageProvider
 """factory produces instances of CustomUser supplying 
 the necessary fields with fake data"""
 
+
 class CustomUserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = CustomUser

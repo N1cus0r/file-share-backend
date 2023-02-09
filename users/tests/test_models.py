@@ -12,6 +12,7 @@ def test_create_user_model(new_user):
 
     assert str(new_user) == new_user.first_name
 
+
 """testing the creation of a superuser 
 from CustomUser instance"""
 

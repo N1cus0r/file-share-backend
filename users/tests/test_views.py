@@ -22,6 +22,7 @@ def test_create_user_view(create_user_form_data, api_client):
 
     assert response.status_code == 201
 
+
 """testing the activation of a CustomUser instance using
 an API endpoint via PATCH request"""
 
@@ -37,8 +38,10 @@ def test_activate_account_view(encoded_uid, request_factory):
 
     assert response.status_code == 200
 
-'''testing the retrieve of a CustomUser serialized
-instance using an API endpoint via GET request'''
+
+"""testing the retrieve of a CustomUser serialized
+instance using an API endpoint via GET request"""
+
 
 @pytest.mark.django_db
 def test_get_user_info_view(new_user, request_factory):
@@ -55,8 +58,8 @@ def test_get_user_info_view(new_user, request_factory):
     assert response.data is not None
 
 
-'''testing retrieving a CustomUser instance encoded id
-using an API endpoint via GET request'''
+"""testing retrieving a CustomUser instance encoded id
+using an API endpoint via GET request"""
 
 
 @pytest.mark.django_db
@@ -73,8 +76,9 @@ def test_get_edit_profile_encoded_uid_view(new_user, request_factory):
 
     assert isinstance(response.data, str)
 
-'''testing editing a CustomUser instance
-using an API endpoint via PATCH request'''
+
+"""testing editing a CustomUser instance
+using an API endpoint via PATCH request"""
 
 
 @pytest.mark.django_db
@@ -91,8 +95,9 @@ def test_edit_profile_view(new_user, request_factory, edit_user_form_data):
 
     assert response.status_code == 200
 
-'''testing resetting a CustomUser instance password
-using an API endpoint via PATCH request'''
+
+"""testing resetting a CustomUser instance password
+using an API endpoint via PATCH request"""
 
 
 @pytest.mark.django_db

@@ -18,8 +18,10 @@ from .serializers import (
 from .models import CustomUser
 from .utils import Util
 
-'''this view accepts POST request and creates a user
-in the serializer from the validated data'''
+"""this view accepts POST request and creates a user
+in the serializer from the validated data"""
+
+
 class CreateUser(APIView):
     serializer_class = CreateCustomUserSerializer
 
@@ -30,8 +32,11 @@ class CreateUser(APIView):
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-'''this view accepts PATCH requests and activates
-the user account in the serializer'''
+
+"""this view accepts PATCH requests and activates
+the user account in the serializer"""
+
+
 class ActivateUserAccount(APIView):
     serializer_class = ActivateAccountSerializer
 
@@ -40,8 +45,11 @@ class ActivateUserAccount(APIView):
         serializer.is_valid(raise_exception=True)
         return Response({"message": "Account activated"}, status=status.HTTP_200_OK)
 
-'''this view accepts GET requests and return the 
-information about the user with the provided email'''
+
+"""this view accepts GET requests and return the 
+information about the user with the provided email"""
+
+
 class GetUserInfo(APIView):
     serializer_class = CustomUserSerializer
     authentication_classes = [OAuth2Authentication, SocialAuthentication]
@@ -65,8 +73,11 @@ class GetUserInfo(APIView):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
-'''this view accepts POST requests and sends 
-and email for password reset if provided data is valid'''
+
+"""this view accepts POST requests and sends 
+and email for password reset if provided data is valid"""
+
+
 class GetPasswordResetEmail(APIView):
     serializer_class = PasswordResetEmailSerializer
 
@@ -77,8 +88,11 @@ class GetPasswordResetEmail(APIView):
             {"message": "We have sent you an email"}, status=status.HTTP_200_OK
         )
 
-'''this view accepts PATCH requests and changes
-user password in the serializer if data is valid'''
+
+"""this view accepts PATCH requests and changes
+user password in the serializer if data is valid"""
+
+
 class PerformPasswordReset(APIView):
     serializer_class = PerformPasswordResetSerializer
 
@@ -89,9 +103,12 @@ class PerformPasswordReset(APIView):
             {"message": "Password reset successfully"}, status=status.HTTP_200_OK
         )
 
-'''this view accepts GET requests and returns an 
+
+"""this view accepts GET requests and returns an 
 encoded user id for profile editing requests 
-where the id will be decoded and profile edited'''
+where the id will be decoded and profile edited"""
+
+
 class GetEditProfileUID(APIView):
     authentication_classes = [OAuth2Authentication, SocialAuthentication]
     permission_classes = [IsAuthenticated]
@@ -112,8 +129,11 @@ class GetEditProfileUID(APIView):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
-'''this view accepts PATCH requests and updates
-the user profile with the provided data'''
+
+"""this view accepts PATCH requests and updates
+the user profile with the provided data"""
+
+
 class EditProfile(APIView):
     serializer_class = EditProfileSerializer
     authentication_classes = [OAuth2Authentication, SocialAuthentication]

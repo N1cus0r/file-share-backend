@@ -9,11 +9,13 @@ from django.utils.encoding import force_bytes
 from .factories import CustomUserFactory, fake, ImageProvider
 from filesapi.tests.factories import ImageProvider
 
-#provides a CustomUser instance
+# provides a CustomUser instance
+
 
 @pytest.fixture
 def new_user():
     return CustomUserFactory.create()
+
 
 # provides the form data needed to create a CustomUser instance
 
@@ -34,11 +36,14 @@ def create_user_form_data():
 
     return form_data
 
-#provides an API Client instance
+
+# provides an API Client instance
+
 
 @pytest.fixture(scope="session")
 def api_client():
     return APIClient()
+
 
 # provides a Request Factory instance
 
@@ -47,13 +52,17 @@ def api_client():
 def request_factory():
     return APIRequestFactory()
 
-#provides an encoded version of user id
+
+# provides an encoded version of user id
+
 
 @pytest.fixture
 def encoded_uid(new_user):
     return urlsafe_base64_encode(force_bytes(new_user.id))
 
-#provides the form data needed to reset a users password
+
+# provides the form data needed to reset a users password
+
 
 @pytest.fixture
 def password_reset_data(new_user, encoded_uid):
@@ -65,7 +74,9 @@ def password_reset_data(new_user, encoded_uid):
 
     return data
 
-#provides the form data needed to edit a users profile
+
+# provides the form data needed to edit a users profile
+
 
 @pytest.fixture
 def edit_user_form_data(encoded_uid):
